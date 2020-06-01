@@ -7,6 +7,8 @@ name: Deploy react app to surge
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,6 +31,7 @@ jobs:
     - uses: borales/actions-yarn@v2.0.0
       with:
         cmd: install
+      
     # Build React app with Yarn
     - name: Build React app
       run: yarn build
@@ -39,14 +42,4 @@ jobs:
     
     # Deploy surge
     - name: Deploy React App To Surge
-      run: surge ./ project002-adnan.surge.sh --token ${{ secrets.SURGE_TOKEN }}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      run: surge ./build project002-adnanali.surge.sh --token ${{ secrets.SURGE_TOKEN }}
